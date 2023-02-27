@@ -1,5 +1,3 @@
-:warning: This project is archived and the repository is no longer maintained. 
-
 # resizeasaurus
 
 A little utility to add resizing behavior to test intrinsically sized responsive components.
