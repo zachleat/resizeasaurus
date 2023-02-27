@@ -1,6 +1,6 @@
 # resizeasaurus
 
-A little utility to add resizing behavior to test intrinsically sized responsive components.
+A little web component to add resizing behavior to test intrinsically sized responsive components.
 
 ## Install
 
