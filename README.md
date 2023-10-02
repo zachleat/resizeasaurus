@@ -27,3 +27,11 @@ Add the `disabled` attribute to disable the component behavior (and hide its sty
 	My component goes here
 </resize-asaurus>
 ```
+
+Add the `label="disabled"` attribute to disable the live width text.
+
+```
+<resize-asaurus label="disabled">
+	My component goes here
+</resize-asaurus>
+```
