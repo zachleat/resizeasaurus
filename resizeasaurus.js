@@ -2,7 +2,7 @@ if( "customElements" in window) {
 	class ResizeASaurus extends HTMLElement {
 		static css = `
 @supports (resize: horizontal) {
-	resize-asaurus:defined {
+	resize-asaurus:not([disabled]):defined {
 		display: grid;
 		padding: 0;
 		resize: horizontal;
@@ -12,7 +12,7 @@ if( "customElements" in window) {
 		background-color: #f9f9f9;
 	}
 	/* Workaround for Safari refusing to go below initial content width */
-	resize-asaurus:defined:active {
+	resize-asaurus:not([disabled]):defined:active {
 		width: var(--resizeasaurus-initial-width, 1px);
 	}
 	.resizeasaurus-size {
@@ -21,6 +21,8 @@ if( "customElements" in window) {
 		justify-content: flex-end;
 		gap: 1.5em;
 		bottom: 0;
+		font-family: system-ui, sans-serif;
+		font-variant-numeric: tabular-nums;
 		padding-right: 1.5em;
 		font-size: 0.8125em; /* 13px /16 */
 		color: #666;
