@@ -9,37 +9,47 @@ class ResizeASaurus extends HTMLElement {
 		padding: 0;
 		resize: horizontal;
 		overflow: auto;
-		outline: 4px dashed #ccc;
+		outline: 2px dashed #ddd;
 		margin: 0 0 6em;
 		background-color: #f9f9f9;
+		position: relative;
 	}
 	/* Workaround for Safari refusing to go below initial content width */
 	resize-asaurus:not([disabled]):defined:active {
 		width: var(--resizeasaurus-initial-width, 1px);
 	}
 	.resizeasaurus-size {
-		display: flex !important;
-		align-items: center;
-		justify-content: flex-end;
-		gap: 1.5em;
+		position: absolute;
+		right: 0;
 		bottom: 0;
 		font-family: system-ui, sans-serif;
 		font-variant-numeric: tabular-nums;
-		padding-right: 1.5em;
+		padding: .25em 1.5em .25em 1em;
 		font-size: 0.8125em; /* 13px /16 */
 		color: #666;
+		border-radius: .5em 0 0 0;
+		background-color: rgba(255,255,255,.7);
+		pointer-events: none;
+		opacity: 0;
+		transition: .3s opacity;
+	}
+	.resizeasaurus-size.active {
+		opacity: 1;
 	}
 }
 `;
 	constructor() {
 		super();
 
+		this.delay = 1000;
+
 		this.attrs = {
 			label: "label"
 		};
 
 		this.classes = {
-			sizer: "resizeasaurus-size"
+			sizer: "resizeasaurus-size",
+			active: "active",
 		};
 	}
 
@@ -63,7 +73,6 @@ class ResizeASaurus extends HTMLElement {
 		this.size = this.querySelector(`.${this.classes.sizer}`);
 		if(!this.size) {
 			this.size = document.createElement("output");
-			this.size.style.display = "none"; // in case css isn’t available.
 			this.size.classList.add(this.classes.sizer);
 			this.size.textContent = "Drag to resize";
 			this.appendChild(this.size);
@@ -71,7 +80,14 @@ class ResizeASaurus extends HTMLElement {
 
 		if("ResizeObserver" in window) {
 			let isSet = false;
+			let timer;
 			this.resizer = new ResizeObserver(entries => {
+				clearTimeout(timer);
+				timer = setTimeout(() => {
+					this.size.classList.remove(this.classes.active);
+				}, this.delay);
+				this.size.classList.add(this.classes.active);
+
 				let width = this.clientWidth + "px";
 				this.size.innerHTML = `${parseInt(width, 10) / 16}em (${width})`;
 				if(!window.safari && !isSet) {
