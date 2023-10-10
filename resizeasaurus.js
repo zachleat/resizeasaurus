@@ -4,14 +4,25 @@ class ResizeASaurus extends HTMLElement {
 
 	static css = `
 @supports (resize: horizontal) {
+	resize-asaurus {
+		--resizeasaurus-color: #000;
+		--resizeasaurus-background: rgba(255,255,255,.7);
+		--resizeasaurus-border: 2px dashed rgba(0,0,0,.3);
+	}
+	@media (prefers-color-scheme: dark) {
+		resize-asaurus {
+			--resizeasaurus-color: #ccc;
+			--resizeasaurus-background: rgba(0,0,0,.7);
+			--resizeasaurus-border: 2px dashed rgba(255,255,255,.3);
+		}
+	}
 	resize-asaurus:not([disabled]):defined {
 		display: grid;
 		padding: 0;
 		resize: horizontal;
 		overflow: auto;
-		outline: 2px dashed #ddd;
+		outline: var(--resizeasaurus-border);
 		margin: 0 0 6em;
-		background-color: #f9f9f9;
 		position: relative;
 	}
 	/* Workaround for Safari refusing to go below initial content width */
@@ -19,6 +30,8 @@ class ResizeASaurus extends HTMLElement {
 		width: var(--resizeasaurus-initial-width, 1px);
 	}
 	.resizeasaurus-size {
+		color: var(--resizeasaurus-color);
+		background-color: var(--resizeasaurus-background);
 		position: absolute;
 		right: 0;
 		bottom: 0;
@@ -26,9 +39,7 @@ class ResizeASaurus extends HTMLElement {
 		font-variant-numeric: tabular-nums;
 		padding: .25em 1.5em .25em 1em;
 		font-size: 0.8125em; /* 13px /16 */
-		color: #666;
 		border-radius: .5em 0 0 0;
-		background-color: rgba(255,255,255,.7);
 		pointer-events: none;
 		opacity: 0;
 		transition: .3s opacity;

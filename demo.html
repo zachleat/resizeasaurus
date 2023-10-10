@@ -10,6 +10,12 @@
 		body {
 			font-family: system-ui, sans-serif;
 		}
+		@media (prefers-color-scheme: dark) {
+			body {
+				background-color: #222;
+				color: #eee;
+			}
+		}
 		.demo-flex {
 			display: flex;
 			flex-wrap: wrap;
@@ -18,6 +24,11 @@
 			flex-grow: 1;
 			flex-basis: 10em;
 			padding: 1em;
+		}
+		@media (prefers-color-scheme: dark) {
+			.demo-flex-cell {
+				color: #222;
+			}
 		}
 		</style>
 	</head>
