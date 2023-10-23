@@ -24,7 +24,14 @@
 			flex-grow: 1;
 			flex-basis: 10em;
 			padding: 1em;
+			background-color: var(--bg-color);
 		}
+		.demo-flex-cell:nth-child(1) { --bg-color: #fea3aa; }
+		.demo-flex-cell:nth-child(2) { --bg-color: #f8b88b; }
+		.demo-flex-cell:nth-child(3) { --bg-color: #faf884; }
+		.demo-flex-cell:nth-child(4) { --bg-color: #baed91; }
+		.demo-flex-cell:nth-child(5) { --bg-color: #b2cefe; }
+		.demo-flex-cell:nth-child(6) { --bg-color: #f2a2e8; }
 		@media (prefers-color-scheme: dark) {
 			.demo-flex-cell {
 				color: #222;
@@ -39,36 +46,36 @@
 
 			<resize-asaurus>
 				<div class="demo-flex">
-					<div class="demo-flex-cell" style="background-color: #fea3aa;">Cell 1</div>
-					<div class="demo-flex-cell" style="background-color: #f8b88b;">Cell 2</div>
-					<div class="demo-flex-cell" style="background-color: #faf884;">Cell 3</div>
-					<div class="demo-flex-cell" style="background-color: #baed91;">Cell 4</div>
-					<div class="demo-flex-cell" style="background-color: #b2cefe;">Cell 5</div>
-					<div class="demo-flex-cell" style="background-color: #f2a2e8;">Cell 6</div>
+					<div class="demo-flex-cell">Cell 1</div>
+					<div class="demo-flex-cell">Cell 2</div>
+					<div class="demo-flex-cell">Cell 3</div>
+					<div class="demo-flex-cell">Cell 4</div>
+					<div class="demo-flex-cell">Cell 5</div>
+					<div class="demo-flex-cell">Cell 6</div>
 				</div>
 			</resize-asaurus>
 
 			<h2>Disabled</h2>
 			<resize-asaurus disabled>
 				<div class="demo-flex">
-					<div class="demo-flex-cell" style="background-color: #fea3aa;">Cell 1</div>
-					<div class="demo-flex-cell" style="background-color: #f8b88b;">Cell 2</div>
-					<div class="demo-flex-cell" style="background-color: #faf884;">Cell 3</div>
-					<div class="demo-flex-cell" style="background-color: #baed91;">Cell 4</div>
-					<div class="demo-flex-cell" style="background-color: #b2cefe;">Cell 5</div>
-					<div class="demo-flex-cell" style="background-color: #f2a2e8;">Cell 6</div>
+					<div class="demo-flex-cell">Cell 1</div>
+					<div class="demo-flex-cell">Cell 2</div>
+					<div class="demo-flex-cell">Cell 3</div>
+					<div class="demo-flex-cell">Cell 4</div>
+					<div class="demo-flex-cell">Cell 5</div>
+					<div class="demo-flex-cell">Cell 6</div>
 				</div>
 			</resize-asaurus>
 
 			<h2>Disable live width output</h2>
 			<resize-asaurus label="disabled">
 				<div class="demo-flex">
-					<div class="demo-flex-cell" style="background-color: #fea3aa;">Cell 1</div>
-					<div class="demo-flex-cell" style="background-color: #f8b88b;">Cell 2</div>
-					<div class="demo-flex-cell" style="background-color: #faf884;">Cell 3</div>
-					<div class="demo-flex-cell" style="background-color: #baed91;">Cell 4</div>
-					<div class="demo-flex-cell" style="background-color: #b2cefe;">Cell 5</div>
-					<div class="demo-flex-cell" style="background-color: #f2a2e8;">Cell 6</div>
+					<div class="demo-flex-cell">Cell 1</div>
+					<div class="demo-flex-cell">Cell 2</div>
+					<div class="demo-flex-cell">Cell 3</div>
+					<div class="demo-flex-cell">Cell 4</div>
+					<div class="demo-flex-cell">Cell 5</div>
+					<div class="demo-flex-cell">Cell 6</div>
 				</div>
 			</resize-asaurus>
 		</main>
