@@ -1,6 +1,6 @@
 {
   "name": "@zachleat/resizeasaurus",
-  "version": "3.0.5",
+  "version": "4.0.0",
   "description": "A web component to add resizing behavior to test intrinsically sized responsive components.",
   "main": "resizeasaurus.js",
   "publishConfig": {
