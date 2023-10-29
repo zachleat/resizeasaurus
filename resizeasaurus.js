@@ -1,35 +1,37 @@
-
 class ResizeASaurus extends HTMLElement {
-	static needsCss = true;
+	static delay = 1000;
+
+	static attr = {
+		disabled: "disabled",
+		label: "label",
+	}
+
+	static classes = {
+		sizer: "sizer",
+		active: "active",
+	}
 
 	static css = `
 @supports (resize: horizontal) {
-	resize-asaurus {
+	:host {
 		--resizeasaurus-color: #000;
 		--resizeasaurus-background: rgba(255,255,255,.7);
-		--resizeasaurus-border: 2px dashed rgba(0,0,0,.3);
 	}
 	@media (prefers-color-scheme: dark) {
-		resize-asaurus {
+		:host {
 			--resizeasaurus-color: #ccc;
 			--resizeasaurus-background: rgba(0,0,0,.7);
-			--resizeasaurus-border: 2px dashed rgba(255,255,255,.3);
 		}
 	}
-	resize-asaurus:not([disabled]):defined {
+	:host(:not([${ResizeASaurus.attr.disabled}]):defined) {
 		display: grid;
 		padding: 0;
 		resize: horizontal;
 		overflow: auto;
-		outline: var(--resizeasaurus-border);
-		margin: 0 0 6em;
 		position: relative;
 	}
-	/* Workaround for Safari refusing to go below initial content width */
-	resize-asaurus:not([disabled]):defined:active {
-		width: var(--resizeasaurus-initial-width, 1px);
-	}
-	.resizeasaurus-size {
+
+	.sizer {
 		color: var(--resizeasaurus-color);
 		background-color: var(--resizeasaurus-background);
 		position: absolute;
@@ -44,74 +46,55 @@ class ResizeASaurus extends HTMLElement {
 		opacity: 0;
 		transition: .3s opacity;
 	}
-	.resizeasaurus-size.active {
+	.sizer.active {
 		opacity: 1;
 	}
 }
 `;
-	constructor() {
-		super();
-
-		this.delay = 1000;
-
-		this.attrs = {
-			label: "label"
-		};
-
-		this.classes = {
-			sizer: "resizeasaurus-size",
-			active: "active",
-		};
-	}
 
 	connectedCallback() {
 		// https://caniuse.com/mdn-api_cssstylesheet_replacesync
-		if(!CSS.supports("resize", "horizontal") || !("replaceSync" in CSSStyleSheet.prototype) || this.hasAttribute("disabled")) {
+		if(this.shadowRoot || !CSS.supports("resize", "horizontal") || !("replaceSync" in CSSStyleSheet.prototype) || this.hasAttribute(ResizeASaurus.attr.disabled)) {
 			return;
 		}
 
-		if(ResizeASaurus.needsCss) {
-			let sheet = new CSSStyleSheet();
-			sheet.replaceSync(ResizeASaurus.css);
-			document.adoptedStyleSheets = [...document.adoptedStyleSheets, sheet];
-			ResizeASaurus.needsCss = false;
-		}
+		let shadowroot = this.attachShadow({ mode: "open" });
 
-		if(this.getAttribute(this.attrs.label) === "disabled") {
+		let sheet = new CSSStyleSheet();
+		sheet.replaceSync(ResizeASaurus.css);
+		shadowroot.adoptedStyleSheets = [sheet];
+
+		let slot = document.createElement("slot");
+		shadowroot.appendChild(slot);
+
+		if(this.getAttribute(ResizeASaurus.attr.label) === "disabled") {
 			return;
 		}
 
-		this.size = this.querySelector(`.${this.classes.sizer}`);
-		if(!this.size) {
-			this.size = document.createElement("output");
-			this.size.classList.add(this.classes.sizer);
-			this.size.textContent = "Drag to resize";
-			this.appendChild(this.size);
-		}
+		let sizer = document.createElement("output");
+		sizer.classList.add(ResizeASaurus.classes.sizer);
+		sizer.textContent = "Drag to resize";
+		shadowroot.appendChild(sizer);
+		this.sizer = sizer;
 
 		if("ResizeObserver" in window) {
-			let isSet = false;
 			let timer;
-			this.resizer = new ResizeObserver(entries => {
+			this.resizer = new ResizeObserver(() => {
 				clearTimeout(timer);
 				timer = setTimeout(() => {
-					this.size.classList.remove(this.classes.active);
-				}, this.delay);
-				this.size.classList.add(this.classes.active);
+					sizer.classList.remove(ResizeASaurus.classes.active);
+				}, ResizeASaurus.delay);
+				sizer.classList.add(ResizeASaurus.classes.active);
 
 				let width = this.clientWidth + "px";
-				this.size.innerHTML = `${parseInt(width, 10) / 16}em (${width})`;
-				if(!window.safari && !isSet) {
-					isSet = true;
-					this.style.setProperty("--resizeasaurus-initial-width", width);
-				}
+				sizer.innerHTML = `${parseInt(width, 10) / 16}em (${width})`;
 			});
 			this.resizer.observe(this);
 		}
 	}
 
 	resize() {
-		this.size.innerHTML = this.outerWidth;
+		this.sizer.innerHTML = this.outerWidth;
 	}
 }
 
