@@ -4,12 +4,13 @@ class ResizeASaurus extends HTMLElement {
 	static attr = {
 		disabled: "disabled",
 		label: "label",
-	}
+		persist: "persist",
+	};
 
 	static classes = {
 		sizer: "sizer",
 		active: "active",
-	}
+	};
 
 	static css = `
 @supports (resize: horizontal) {
@@ -46,7 +47,8 @@ class ResizeASaurus extends HTMLElement {
 		opacity: 0;
 		transition: .3s opacity;
 	}
-	.sizer.active {
+	.sizer.active,
+	:host([${ResizeASaurus.attr.persist}]) .sizer {
 		opacity: 1;
 	}
 }
