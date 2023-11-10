@@ -26,18 +26,16 @@ class ResizeASaurus extends HTMLElement {
 	}
 	:host(:not([${ResizeASaurus.attr.disabled}]):defined) {
 		display: grid;
-		padding: 0;
 		resize: horizontal;
 		overflow: auto;
-		position: relative;
 	}
 
 	.sizer {
+		align-self: end;
+		justify-self: end;
+		margin-top: -100%;
 		color: var(--resizeasaurus-color);
 		background-color: var(--resizeasaurus-background);
-		position: absolute;
-		right: 0;
-		bottom: 0;
 		font-family: system-ui, sans-serif;
 		font-variant-numeric: tabular-nums;
 		padding: .25em 1.5em .25em 1em;
