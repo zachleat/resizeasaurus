@@ -5,6 +5,7 @@ class ResizeASaurus extends HTMLElement {
 		disabled: "disabled",
 		label: "label",
 		persist: "persist",
+		position: "position", // "static"
 	};
 
 	static classes = {
@@ -33,7 +34,6 @@ class ResizeASaurus extends HTMLElement {
 	.sizer {
 		align-self: end;
 		justify-self: end;
-		margin-top: -100%;
 		color: var(--resizeasaurus-color);
 		background-color: var(--resizeasaurus-background);
 		font-family: system-ui, sans-serif;
@@ -48,6 +48,9 @@ class ResizeASaurus extends HTMLElement {
 	.sizer.active,
 	:host([${ResizeASaurus.attr.persist}]) .sizer {
 		opacity: 1;
+	}
+	:host(:not([${ResizeASaurus.attr.position}="static"]):defined) .sizer {
+		margin-top: -100%;
 	}
 }
 `;
