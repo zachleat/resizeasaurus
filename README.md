@@ -10,7 +10,7 @@ npm install @zachleat/resizeasaurus --save
 
 ## Demo
 
-* [https://resizeasaurus.zachleat.dev/demo.html](https://resizeasaurus.zachleat.dev/demo.html)
+* [https://resizeasaurus.zachleat.dev/](https://resizeasaurus.zachleat.dev/)
 
 ## Usage
 
